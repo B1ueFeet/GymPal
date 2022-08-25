@@ -38,7 +38,7 @@ public class Facturas {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(450, 300);
+		shell.setSize(544, 503);
 		shell.setText("SWT Application");
 
 	}
