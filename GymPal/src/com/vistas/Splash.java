@@ -11,6 +11,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 
+import com.controladores.VistaInicial;
+import com.modelos.Verificador;
+
 
 
 public class Splash {
@@ -23,7 +26,7 @@ public class Splash {
 		String dir = this.getClass().getResource("/recursos/imagenes/splash.png").getPath();
 		
 		final Image IMAGEN = new Image(display, dir);
-		final Shell SPLASH = new Shell(SWT.ON_TOP);
+		final Shell SPLASH = new Shell(SWT.NONE);
 		final ProgressBar BARRA = new ProgressBar(SPLASH,SWT.NONE);
 		//se pone como maximo el maximo definido antes
 		BARRA.setMaximum(SPLASH_MAXIMO);
@@ -72,7 +75,9 @@ public class Splash {
                     }
                     BARRA.setSelection(splashPos);
                 }
-				VistaInicial.reportWindow.initWindow();
+				
+				Verificador usr = new Verificador();
+				VistaInicial.principal.open();
                 SPLASH.close();
                 IMAGEN.dispose(); 
             }
