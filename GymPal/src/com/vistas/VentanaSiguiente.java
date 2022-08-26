@@ -5,12 +5,12 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-public class ReportWindow 
+public class VentanaSiguiente 
 {
 	private Display display;
 	private Shell shell;
 
-	public ReportWindow(Display display) {
+	public VentanaSiguiente(Display display) {
 		this.display = display;
 	}
 

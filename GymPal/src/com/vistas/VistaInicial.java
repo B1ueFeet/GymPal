@@ -6,11 +6,11 @@ import org.eclipse.swt.widgets.Display;
 
 public class VistaInicial {
 	
-	public static ReportWindow reportWindow;
+	public static VentanaSiguiente reportWindow;
 	
 	public VistaInicial() {
 	    	Display display = new Display();
-	    	reportWindow = new ReportWindow(display);
+	    	reportWindow = new VentanaSiguiente(display);
 	        Splash splashWindow = new Splash(display);
 	        while((Display.getCurrent().getShells().length != 0)
 	                 && !Display.getCurrent().getShells()[0].isDisposed())
