@@ -11,6 +11,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 
+
+
 public class Splash {
 	//se define algunas variables globales
 	private int splashPos =0;
@@ -18,7 +20,7 @@ public class Splash {
 	
 	public Splash(Display display) {
 		//creacion de la imagen y la barra
-		String dir = this.getClass().getResource("/recursos/imagenes/pesas_color.jpg").getPath();
+		String dir = this.getClass().getResource("/recursos/imagenes/splash.png").getPath();
 		
 		final Image IMAGEN = new Image(display, dir);
 		final Shell SPLASH = new Shell(SWT.ON_TOP);
@@ -70,8 +72,7 @@ public class Splash {
                     }
                     BARRA.setSelection(splashPos);
                 }
-				Facturas fac = new Facturas();
-				fac.open();
+				VistaInicial.reportWindow.initWindow();
                 SPLASH.close();
                 IMAGEN.dispose(); 
             }
