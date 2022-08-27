@@ -3,18 +3,17 @@ package com.vistas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-public class Principal {
+public class VInventario {
 
 	protected Shell shell;
-	private Display display;
-	
-	public Principal(Display display) {
-		this.display = display;
-	}
-	
+
+	/**
+	 * Launch the application.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		try {
-			Principal window = new Principal(Display.getDefault());
+			VInventario window = new VInventario();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -25,10 +24,15 @@ public class Principal {
 	 * Open the window.
 	 */
 	public void open() {
+		Display display = Display.getDefault();
 		createContents();
 		shell.open();
 		shell.layout();
-
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
 	}
 
 	/**
@@ -36,7 +40,7 @@ public class Principal {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(610, 421);
+		shell.setSize(450, 300);
 		shell.setText("SWT Application");
 
 	}

@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-public class Facturas {
+public class VFacturas {
 
 	protected Shell shell;
 	private Text text;
@@ -33,7 +33,7 @@ public class Facturas {
 	 */
 	public static void main(String[] args) {
 		try {
-			Facturas window = new Facturas();
+			VFacturas window = new VFacturas();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();

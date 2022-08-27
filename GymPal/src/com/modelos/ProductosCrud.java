@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.objetos.Conexion;
+import com.objetos.Productos;
+
 //crear un prodcuto,eliminar,consultar,actualizar
 public class ProductosCrud { // Create, Read, Update, Delete
 

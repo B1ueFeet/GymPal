@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.objetos.Cliente;
+import com.objetos.Conexion;
+
 public class ClienteCrud {
 	
 	private Connection connection;

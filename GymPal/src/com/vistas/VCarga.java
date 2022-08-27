@@ -1,5 +1,7 @@
 package com.vistas;
 
+import java.sql.SQLException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
@@ -11,31 +13,52 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 
-import com.controladores.VistaInicial;
-import com.modelos.Verificador;
+import com.controladores.Verificador;
+import org.eclipse.wb.swt.SWTResourceManager;
 
+public class VCarga {
 
-
-public class Splash {
+	protected Shell shell;
 	//se define algunas variables globales
 	private int splashPos =0;
 	private final int SPLASH_MAXIMO= 100;
+	private Display display;
 	
-	public Splash(Display display) {
+	public VCarga(Display display) {
+		this.display = display;
+		open();
+	}
+	
+	/**
+	 * Open the window.
+	 */
+	public void open() {
+		//Display display = Display.getDefault();
+		createContents(display);
+	}
+
+	/**
+	 * Create contents of the window.
+	 */
+	protected void createContents(Display display ){
 		//creacion de la imagen y la barra
-		String dir = this.getClass().getResource("/recursos/imagenes/splash.png").getPath();
+		String dirS = this.getClass().getResource("/recursos/imagenes/splash.png").getPath();
 		
-		final Image IMAGEN = new Image(display, dir);
-		final Shell SPLASH = new Shell(SWT.NONE);
-		final ProgressBar BARRA = new ProgressBar(SPLASH,SWT.NONE);
+		
+		final Image IMAGEN = new Image(display, dirS);
+		shell = new Shell(SWT.NONE);
+		final ProgressBar BARRA = new ProgressBar(shell,SWT.NONE);
+		
 		//se pone como maximo el maximo definido antes
 		BARRA.setMaximum(SPLASH_MAXIMO);
 		//se crea y se inserta un label con la imagen
-		Label label = new Label(SPLASH,SWT.NONE);
+		Label label = new Label(shell,SWT.NONE);
+		label.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
+		label.setFont(SWTResourceManager.getFont("agave NF", 9, SWT.NORMAL));
 		label.setImage(IMAGEN);
 		//formlayout adapta los componentes a los cambios de la pantalla 
 		FormLayout layout = new FormLayout();
-		SPLASH.setLayout(layout);
+		shell.setLayout(layout);
 		//FormData permite compilar un conjunto de pares clave/valor
 		FormData labelData = new FormData();
 		//FormAttachment ancla los valores a algun componente
@@ -49,17 +72,15 @@ public class Splash {
 	    progressData.bottom = new FormAttachment(100, 0);
 	    BARRA.setLayoutData(progressData);
 	    //.pack() dimensiona el Splash para que todo su contenido esté EN o ENCIMA de sus tamaños 
-	    SPLASH.pack();
+	    shell.pack();
 		//crea rectangulos de las medidas para guardarlas 
-        Rectangle splashRect = SPLASH.getBounds();
+        Rectangle splashRect = shell.getBounds();
         Rectangle displayRect = display.getBounds();
         int x = (displayRect.width - splashRect.width) / 2;
         int y = (displayRect.height - splashRect.height) / 2;
-        SPLASH.setLocation(x, y);
-        //.open()  devuelve lo que se conoce como file handle
-        SPLASH.open();
+        shell.setLocation(x, y);
+		shell.open();
         //metodo para correr de forma asincrona
-        
         display.asyncExec(new Runnable(){
 
 			@Override
@@ -76,9 +97,13 @@ public class Splash {
                     BARRA.setSelection(splashPos);
                 }
 				
-				Verificador usr = new Verificador();
-				VistaInicial.principal.open();
-                SPLASH.close();
+				try {
+					Verificador usr = new Verificador(display);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                shell.close();
                 IMAGEN.dispose(); 
             }
         });
@@ -89,8 +114,6 @@ public class Splash {
             {
                 display.dispose();
             }
-        }		
-		
+        }
 	}
-
 }
