@@ -12,9 +12,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
-
 import com.controladores.Verificador;
-import org.eclipse.wb.swt.SWTResourceManager;
+
 
 public class VCarga {
 
@@ -53,8 +52,6 @@ public class VCarga {
 		BARRA.setMaximum(SPLASH_MAXIMO);
 		//se crea y se inserta un label con la imagen
 		Label label = new Label(shell,SWT.NONE);
-		label.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
-		label.setFont(SWTResourceManager.getFont("agave NF", 9, SWT.NORMAL));
 		label.setImage(IMAGEN);
 		//formlayout adapta los componentes a los cambios de la pantalla 
 		FormLayout layout = new FormLayout();

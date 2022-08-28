@@ -17,6 +17,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class VFacturas {
 
@@ -26,18 +28,11 @@ public class VFacturas {
 	private Text text_2;
 	private Text text_3;
 	private Table table;
+	private Display display;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			VFacturas window = new VFacturas();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public VFacturas(Display display) {
+		this.display = display;
+		open();
 	}
 
 	/**
@@ -119,8 +114,16 @@ public class VFacturas {
 		btnNewButton_3.setText("New Button");
 		
 		Button btnNewButton_4 = new Button(shell, SWT.NONE);
+		btnNewButton_4.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				shell.dispose();
+				
+			}
+		});
 		btnNewButton_4.setBounds(262, 432, 75, 25);
-		btnNewButton_4.setText("New Button");
+		btnNewButton_4.setText("Regresar");
 		
 		table = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION);
 		table.setBounds(22, 202, 495, 208);
