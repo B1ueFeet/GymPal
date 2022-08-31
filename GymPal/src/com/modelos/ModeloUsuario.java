@@ -14,7 +14,7 @@ import com.objetos.Conexion;
 import com.objetos.Productos;
 import com.objetos.Usuario;
 
-public class UsrCrud {
+public class ModeloUsuario {
 	
 	private Connection connection;
     private PreparedStatement sentencia;
