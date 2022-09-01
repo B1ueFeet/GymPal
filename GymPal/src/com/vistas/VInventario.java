@@ -2,10 +2,18 @@ package com.vistas;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.List;
 
 public class VInventario {
 
-	protected Shell shell;
+	protected Shell shlPersonalGympal;
 
 	/**
 	 * Launch the application.
@@ -26,9 +34,9 @@ public class VInventario {
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
-		shell.open();
-		shell.layout();
-		while (!shell.isDisposed()) {
+		shlPersonalGympal.open();
+		shlPersonalGympal.layout();
+		while (!shlPersonalGympal.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
@@ -39,10 +47,9 @@ public class VInventario {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(450, 300);
-		shell.setText("SWT Application");
+		shlPersonalGympal = new Shell();
+		shlPersonalGympal.setSize(539, 394);
+		shlPersonalGympal.setText("Inventario - GymPal");
 
 	}
-
 }
