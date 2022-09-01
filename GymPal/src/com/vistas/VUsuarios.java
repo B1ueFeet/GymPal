@@ -18,7 +18,7 @@ public class VUsuarios {
 	protected Shell shell;
 	protected Display display;
 	private Text userName, password;
-	Button insertar, recuperarU, cancelar;
+	Button ingresar, recuperarU, cancelar;
 	Label mostrarContraseña;
 	int contador = 0;
 
@@ -75,20 +75,21 @@ public class VUsuarios {
 		lblNewLabel_2.setText("Contraseña:");
 
 		mostrarContraseña = new Label(shell, SWT.NONE);
-		mostrarContraseña.setBounds(423, 161, 55, 15);
-		mostrarContraseña.setText("New Label");
+		mostrarContraseña.setAlignment(SWT.RIGHT);
+		mostrarContraseña.setBounds(360, 161, 118, 15);
+		mostrarContraseña.setText("Mostrar Contraseña");
 
 		recuperarU = new Button(shell, SWT.NONE);
 		recuperarU.setBounds(54, 227, 140, 25);
-		recuperarU.setText("New Button");
+		recuperarU.setText("¿Olvidaste tu Uusario?");
 
 		cancelar = new Button(shell, SWT.NONE);
 		cancelar.setBounds(298, 227, 75, 25);
-		cancelar.setText("New Button");
+		cancelar.setText("Cancelar");
 
-		insertar = new Button(shell, SWT.NONE);
-		insertar.setBounds(403, 227, 75, 25);
-		insertar.setText("New Button");
+		ingresar = new Button(shell, SWT.NONE);
+		ingresar.setBounds(403, 227, 75, 25);
+		ingresar.setText("Ingresar");
 
 		userName = new Text(shell, SWT.BORDER);
 		userName.setBounds(194, 87, 285, 21);
@@ -102,8 +103,10 @@ public class VUsuarios {
 	public void setControlador(ControlUsuarios c) {
 
 		recuperarU.addListener(SWT.Selection, c);
-		// password.addListener(SWT.TRAVERSE_RETURN, c);
-		// mostrarC.addListener(SWT.TRAVERSE_RETURN, c);
+		cancelar.addListener(SWT.Selection, c);
+		ingresar.addListener(SWT.Selection, c);
+		
+
 		mostrarContraseña.addListener(SWT.TRAVERSE_RETURN, c);
 
 	}
@@ -112,7 +115,7 @@ public class VUsuarios {
 		if ((contador % 2) == 0) {
 			password.setEchoChar('*');
 		} else {
-			password.setEchoChar((char) 0); // password = JPasswordField
+			password.setEchoChar((char) 0);
 		}
 
 	}
@@ -120,4 +123,16 @@ public class VUsuarios {
 	public int aumentarContador() {
 		return contador ++;
 	}
+	
+	public String getContraseña() {
+		return password.getText();
+	}
+	public String getUsuario() {
+		return userName.getText();
+	}
+	
+	public void apagar() {
+		display.sleep();
+	}
+	
 }

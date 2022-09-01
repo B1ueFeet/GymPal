@@ -29,7 +29,13 @@ public class CPrincipal {
 	       ControlUsuarios controlU =new ControlUsuarios(vistaU,modeloU);
 	       vistaU.setControlador(controlU);
 	       vistaU.open();
-	       
+	       while(!Display.getCurrent().getShells()[0].isDisposed())
+	        {
+	             if(!display.readAndDispatch())
+	             {
+	                 display.sleep();
+	             }
+	        } 
 	    }
 	
 	public static void main(String[] args) 
