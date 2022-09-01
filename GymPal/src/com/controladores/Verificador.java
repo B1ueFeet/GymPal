@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 
 import org.eclipse.swt.widgets.Display;
 
-import com.modelos.ModeloUsuario;
+import com.modelos.UsrCrud;
 import com.objetos.Empleado.Cargo;
 import com.vistas.VPrincipal;
 import com.objetos.Usuario;
@@ -42,7 +42,7 @@ public class Verificador {
 	public boolean verificarUsuario(String str, String pas) throws SQLException {
 
 		Usuario usr = new Usuario();
-		ModeloUsuario ucd = new ModeloUsuario();
+		UsrCrud ucd = new UsrCrud();
 		usr = ucd.leerUsuario(str);
 
 		if (usr == null) {

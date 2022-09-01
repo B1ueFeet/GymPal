@@ -117,6 +117,18 @@ public class VPrincipal {
 		viewForm.setBounds(278, 164, 0, 0);
 		
 		Button btnNewButton = new Button(shell, SWT.NONE);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				shell.setVisible(false);
+				Prueba pr = new Prueba(display);
+				do {
+					if(pr.shell.isDisposed()) {
+						shell.setVisible(true);
+					}
+				}while(!pr.shell.isDisposed());
+			}
+		});
 		btnNewButton.setBounds(47, 44, 75, 25);
 		btnNewButton.setText("Inventario");
 		
@@ -138,10 +150,29 @@ public class VPrincipal {
 		btnNewButton_1.setText("Caja");
 		
 		Button btnNewButton_2 = new Button(shell, SWT.NONE);
+		btnNewButton_2.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+		shell.setVisible(false);
+				VPersonal personal = new VPersonal(display);
+				do {
+					if(personal.shell.isDisposed()) {
+						shell.setVisible(true);
+					}	
+				}while(!personal.shell.isDisposed());
+			}
+		});
 		btnNewButton_2.setBounds(486, 44, 75, 25);
 		btnNewButton_2.setText("Personal");
 		
+		
 		Button btnNewButton_3 = new Button(shell, SWT.NONE);
+		btnNewButton_3.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+			}
+		});
 		btnNewButton_3.setBounds(486, 118, 75, 25);
 		btnNewButton_3.setText("Contabilidad");
 		

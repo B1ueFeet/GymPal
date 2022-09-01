@@ -25,7 +25,7 @@ public class CPrincipal {
 	
 	public static void main(String[] args) 
 	  {
-		Empleado emp = new Empleado(1,"S","a",1717171717, Empleado.Cargo.GERENTE );
+		Empleado emp = new Empleado(1, "S", "A", 1717171717, "0984653120", "recreo", "socastillo@gmail.com", Empleado.Cargo.GERENTE);
 		System.out.println(emp.getCargo());
 	    new CPrincipal();
 	  }
