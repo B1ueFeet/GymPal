@@ -2,7 +2,7 @@ package com.objetos;
 
 public class Usuario {
 	
-	private String name, password, privilegio;
+	private String username, password, privilegio;
 	
 	
 	
@@ -15,7 +15,7 @@ public class Usuario {
 
 	public Usuario(String name, String password, String privilegio) {
 		super();
-		this.name = name;
+		this.username = name;
 		this.password = password;
 		this.privilegio = privilegio;
 		
@@ -25,14 +25,14 @@ public class Usuario {
 
 
 	public String getName() {
-		return name;
+		return username;
 	}
 
 
 
 
 	public void setName(String name) {
-		this.name = name;
+		this.username = name;
 	}
 
 
