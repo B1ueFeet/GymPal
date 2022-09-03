@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="C:/Users/omars/.p2/pool/plugins/org.eclipse.ui.forms_3.11.300.v20211022-1451.jar" sourcepath="C:/Users/omars/.p2/pool/plugins/org.eclipse.ui.forms_3.11.300.v20211022-1451.jar"/>
 	<classpathentry kind="lib" path="D:/Users/omars/Downloads/postgresql-42.2.19.jar"/>
 	<classpathentry kind="lib" path="D:/Users/omars/Downloads/commons-codec-1.15-bin/commons-codec-1.15/commons-codec-1.15.jar"/>
+	<classpathentry kind="lib" path="swing2swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

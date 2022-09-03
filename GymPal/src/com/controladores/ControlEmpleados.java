@@ -9,9 +9,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import com.modelos.ModeloEmpleado;
-import com.modelos.ModeloUsuario;
 import com.objetos.Empleado;
-import com.objetos.Usuario;
 import com.vistas.VUsuarios;
 
 public class ControlEmpleados implements Listener{
@@ -114,6 +112,8 @@ public class ControlEmpleados implements Listener{
 	private void siguienteAccion(boolean b) {
 		if (b) {
             JOptionPane.showMessageDialog(null, "Bienvenido " + empleado );
+            
+            
 			vista.apagar();
 		}else {
 			JOptionPane.showMessageDialog(null, "Usuario o ContraseÃ±a Incorrectos", CANCELAR, 0);

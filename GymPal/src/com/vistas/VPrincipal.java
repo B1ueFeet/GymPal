@@ -1,209 +1,118 @@
 package com.vistas;
 
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Tray;
-import org.eclipse.swt.widgets.TrayItem;
 
-import com.controladores.Verificador;
+import com.controladores.ControlEmpleados;
+import com.controladores.ControlPrincipal;
 
-import org.eclipse.swt.custom.ViewForm;
-
-import java.awt.PopupMenu;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.sql.SQLException;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import swing2swt.layout.BorderLayout;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormAttachment;
+import swing2swt.layout.BoxLayout;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Table;
 
 public class VPrincipal {
 
 	protected Shell shell;
-	private Display display;
-	
-	public Shell getShell() {
-		return shell;
-	}
+	protected Display display;
+	private Composite compUsuario,compBotones, compTabla, compPestanias;
+	private Table table_1;
 
 	public VPrincipal(Display display) {
 		this.display = display;
-		open();
-	}
-	
-
-
-	/**
-	 * Open the window.
-	 */
-	public void open() {
 		createContents();
+	}
+
+	public static void main(String[] args) {
+		try {
+			VPrincipal window = new VPrincipal(Display.getDefault());
+			window.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void open() {
 		shell.open();
 		shell.layout();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}
+
+	protected void createContents() {
+		shell = new Shell();
+		shell.setSize(900, 600);
+		shell.setText("SWT Application");
+		shell.setLayout(new FormLayout());
+
+		Menu menu = new Menu(shell, SWT.BAR);
+		shell.setMenuBar(menu);
+
+		compUsuario = new Composite(shell, SWT.NONE);
+		compUsuario.setLayout(null);
+		FormData fd_composite = new FormData();
+		fd_composite.right = new FormAttachment(0, 300);
+		fd_composite.top = new FormAttachment(0, 30);
+		fd_composite.left = new FormAttachment(0, 30);
+		compUsuario.setLayoutData(fd_composite);
+		
+		compPestanias = new Composite(shell, SWT.NONE);
+		compPestanias.setLayout(new FillLayout(SWT.HORIZONTAL));
+		FormData fd_composite1 = new FormData();
+		fd_composite1.top = new FormAttachment(compUsuario, 15);
+		fd_composite1.bottom = new FormAttachment(100, -30);
+		fd_composite1.left = new FormAttachment(0, 30);
+		fd_composite1.right = new FormAttachment(0, 300);
+		compPestanias.setLayoutData(fd_composite1);
+		
+		compBotones = new Composite(shell, SWT.NONE);
+		compBotones.setLayout(null);
+		FormData fd_composite_1 = new FormData();
+		fd_composite_1.top = new FormAttachment(0, 30);
+		fd_composite_1.left = new FormAttachment(compUsuario, 16);
+		fd_composite_1.right = new FormAttachment(100, -30);
+		compBotones.setLayoutData(fd_composite_1);
+		
+		compTabla = new Composite(shell, SWT.NONE);
+		compTabla.setLayout(new FillLayout(SWT.HORIZONTAL));
+		FormData fd_composite_2 = new FormData();
+		fd_composite_2.right = new FormAttachment(compBotones, 0, SWT.RIGHT);
+		fd_composite_2.top = new FormAttachment(compPestanias, 0, SWT.TOP);
+		fd_composite_2.bottom = new FormAttachment(100, -30);
+		fd_composite_2.left = new FormAttachment(compUsuario, 16);
+		compTabla.setLayoutData(fd_composite_2);
+		
+		table_1 = new Table(compTabla, SWT.BORDER | SWT.FULL_SELECTION);
+		table_1.setHeaderVisible(true);
+		table_1.setLinesVisible(true);
 
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
-		String dirI = this.getClass().getResource("/recursos/imagenes/icono_colores.png").getPath();
-		final Image ICONO = new Image(display,dirI);
-	    Image image = new Image(display, dirI);
-	    final Tray tray = display.getSystemTray();
+	public void setControlador(ControlPrincipal c) {
 
-		shell = new Shell();
-		shell.setImage(ICONO);
-		shell.setSize(610, 421);
-		shell.setText("GYMpal");
-		
-		//tray
-	    if (tray == null) {
-	        System.out.println("The system tray is not available");
-	      } else {
-	        final TrayItem item = new TrayItem(tray, SWT.NONE);
-	        item.setToolTipText("SWT TrayItem");
-	        item.addListener(SWT.Show, new Listener() {
-	          public void handleEvent(Event event) {
-	            System.out.println("show");
-	          }
-	        });
-	        item.addListener(SWT.Hide, new Listener() {
-	          public void handleEvent(Event event) {
-	            System.out.println("hide");
-	          }
-	        });
-	        item.addListener(SWT.Selection, new Listener() {
-	          public void handleEvent(Event event) {
-	            System.out.println("selection");
-	          }
-	        });
-	        item.addListener(SWT.DefaultSelection, new Listener() {
-	          public void handleEvent(Event event) {
-	            System.out.println("default selection");
-	          }
-	        });
-	        final Menu menu = new Menu(shell, SWT.POP_UP);
-	        for (int i = 0; i < 8; i++) {
-	          MenuItem mi = new MenuItem(menu, SWT.PUSH);
-	          mi.setText("Item" + i);
-	          mi.addListener(SWT.Selection, new Listener() {
-	            public void handleEvent(Event event) {
-	              System.out.println("selection " + event.widget);
-	            }
-	          });
-	          if (i == 0)
-	            menu.setDefaultItem(mi);
-	        }
-	        item.addListener(SWT.MenuDetect, new Listener() {
-	          public void handleEvent(Event event) {
-	            menu.setVisible(true);
-	          }
-	        });
-	        item.setImage(image);
-	      }
-	      // fin del tray
-		
-		PopupMenu popup = new PopupMenu();
-		
-		ViewForm viewForm = new ViewForm(shell, SWT.NONE);
-		viewForm.setBounds(278, 164, 0, 0);
-		
-		Button btnNewButton = new Button(shell, SWT.NONE);
-		btnNewButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				shell.setVisible(false);
-				Prueba pr = new Prueba(display);
-				do {
-					if(pr.shell.isDisposed()) {
-						shell.setVisible(true);
-					}
-				}while(!pr.shell.isDisposed());
-			}
-		});
-		btnNewButton.setBounds(47, 44, 75, 25);
-		btnNewButton.setText("Inventario");
-		
-		Button btnNewButton_1 = new Button(shell, SWT.NONE);
-		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				shell.setVisible(false);
-				VFacturas facturas = new VFacturas(display);
-				do {
-					if(facturas.shell.isDisposed()) {
-						shell.setVisible(true);
-					}
-				}while(!facturas.shell.isDisposed());
-			//
-			}
-		});
-		btnNewButton_1.setBounds(47, 118, 75, 25);
-		btnNewButton_1.setText("Caja");
-		
-		Button btnNewButton_2 = new Button(shell, SWT.NONE);
-		btnNewButton_2.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-		shell.setVisible(false);
-				VPersonal personal = new VPersonal(display);
-				do {
-					if(personal.shell.isDisposed()) {
-						shell.setVisible(true);
-					}	
-				}while(!personal.shell.isDisposed());
-			}
-		});
-		btnNewButton_2.setBounds(486, 44, 75, 25);
-		btnNewButton_2.setText("Personal");
-		
-		
-		Button btnNewButton_3 = new Button(shell, SWT.NONE);
-		btnNewButton_3.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				
-			}
-		});
-		btnNewButton_3.setBounds(486, 118, 75, 25);
-		btnNewButton_3.setText("Contabilidad");
-		
-		Button btnNewButton_4 = new Button(shell, SWT.NONE);
-		btnNewButton_4.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnNewButton_4.setBounds(486, 343, 75, 25);
-		btnNewButton_4.setText("Salir");
-		
-		Button btnNewButton_5 = new Button(shell, SWT.NONE);
-		btnNewButton_5.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				shell.dispose();
-				try {
-					Verificador usr = new Verificador(display);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			
-			}
-		});
-		btnNewButton_5.setBounds(388, 343, 75, 25);
-		btnNewButton_5.setText("Cambiar de usuario");
-		
+	}
 
+	public void apagar() {
+		shell.close();
+	}
 
+	public Display getDisplay() {
+		return display;
+	}
+
+	public void setDisplay(Display display) {
+		this.display = display;
 	}
 }

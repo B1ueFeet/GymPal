@@ -27,11 +27,6 @@ public class VUsuarios {
 		createContents();
 	}
 
-	/**
-	 * Launch the application.
-	 * 
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		try {
 			VUsuarios window = new VUsuarios(Display.getDefault());
@@ -41,9 +36,7 @@ public class VUsuarios {
 		}
 	}
 
-	/**
-	 * Open the window.
-	 */
+
 	public void open() {
 		shell.open();
 		shell.layout();
@@ -132,7 +125,7 @@ public class VUsuarios {
 	}
 	
 	public void apagar() {
-		display.sleep();
+		shell.close(); 
 	}
 	
 }

@@ -1,7 +1,5 @@
 package com.vistas;
 
-import java.sql.SQLException;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
@@ -12,7 +10,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
-import com.controladores.Verificador;
 
 
 public class VCarga {
@@ -94,12 +91,6 @@ public class VCarga {
                     BARRA.setSelection(splashPos);
                 }
 				
-				try {
-					Verificador usr = new Verificador(display);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
                 shell.close();
                 IMAGEN.dispose(); 
             }
