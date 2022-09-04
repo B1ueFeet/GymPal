@@ -73,11 +73,11 @@ public class ModeloEmpleado {
 		return e;
 	}
 	
-    public HashSet<Empleado> LeerProductos() throws SQLException {
+    public List<Empleado> LeerProductos() throws SQLException {
         String sql = null;
         ResultSet resultSet = null;
         connection = obtenerConexion();
-        HashSet<Empleado> listaProductos = new HashSet<>();
+        List<Empleado> listaProductos = new ArrayList<>();
         connection = obtenerConexion();
 
         try {

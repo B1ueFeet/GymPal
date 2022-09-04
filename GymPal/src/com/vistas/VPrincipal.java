@@ -38,7 +38,7 @@ public class VPrincipal {
 
 	protected Shell shell;
 	protected Display display;
-	private Composite compUsuario, compBotones, compTabla, compPestanias, comBtnVentas,compEmpleados;
+	private Composite compUsuario, compBotones, compTabla, compPestanias, comBtnVentas, compEmpleados;
 	private Button btnEmpleados, btnClientes, btnVentas, btnInventario, btnCambiarUsr, separador, btnSalir;
 	private Label lblNombre, lblCargo, lblFoto;
 	private Button btnIngresar;
@@ -52,29 +52,22 @@ public class VPrincipal {
 	private Label lblNewLabel_1;
 	private Label lblNewLabel_2;
 	private Composite comBtnClientes;
-	private Button btnNewButton_2;
-	private Button btnNewButton_5;
-	private Button btnNewButton_6;
-	private Button btnNewButton_7;
+	private Button btnCliTabla;
+	private Button btnCliNuevo;
+	private Button btnCliEliminar;
 	private Composite comBtnEmpleados;
 	private Button btnNewButton_8;
 	private Button btnNewButton_9;
-	private Button btnNewButton_10;
 	private Button btnNewButton_11;
 	private Composite comBtnInventario;
 	private Button btnNewButton_12;
 	private Button btnNewButton_13;
-	private Button btnNewButton_14;
 	private Button btnNewButton_15;
 	private Button btnSalir_1;
 	private Button btnSalir_2;
 	private Button btnSalir_3;
 	private Button separador_1;
-	private Table tablaClientes;
-	private Table tablaEmpleados;
-	private Table tablaProductos;
-	private Table tablaVentas;
-	TableColumn tblclmnNewColumn1,tblclmnNewColumn2,tblclmnNewColumn3,tblclmnNewColumn4;
+	TableColumn tblclmnNewColumn1, tblclmnNewColumn2, tblclmnNewColumn3, tblclmnNewColumn4;
 	private Composite compClientes;
 	private Composite compVentas;
 	private Composite compInventario;
@@ -147,30 +140,18 @@ public class VPrincipal {
 		fd_composite_2.bottom = new FormAttachment(100, -30);
 		fd_composite_2.left = new FormAttachment(compUsuario, 20);
 		compTabla.setLayoutData(fd_composite_2);
-		
 
-		
-
-
-		
-		
-		
-		
-		
 		comBtnClientes = new Composite(compBotones, SWT.NONE);
 		comBtnClientes.setLayout(new FillLayout(SWT.HORIZONTAL));
 
-		btnNewButton_6 = new Button(comBtnClientes, SWT.NONE);
-		btnNewButton_6.setText("Nuevo Cliente");
+		btnCliNuevo = new Button(comBtnClientes, SWT.NONE);
+		btnCliNuevo.setText("Nuevo Cliente");
 
-		btnNewButton_7 = new Button(comBtnClientes, SWT.NONE);
-		btnNewButton_7.setText("Eliminar Cliente");
+		btnCliEliminar = new Button(comBtnClientes, SWT.NONE);
+		btnCliEliminar.setText("Eliminar Cliente");
 
-		btnNewButton_5 = new Button(comBtnClientes, SWT.NONE);
-		btnNewButton_5.setText("Actualizar Cliente");
-
-		btnNewButton_2 = new Button(comBtnClientes, SWT.NONE);
-		btnNewButton_2.setText("Actualizar Tabla");
+		btnCliTabla = new Button(comBtnClientes, SWT.NONE);
+		btnCliTabla.setText("Actualizar Tabla");
 
 		comBtnEmpleados = new Composite(compBotones, SWT.NONE);
 		comBtnEmpleados.setLayout(new FillLayout(SWT.HORIZONTAL));
@@ -180,9 +161,6 @@ public class VPrincipal {
 
 		btnNewButton_9 = new Button(comBtnEmpleados, SWT.NONE);
 		btnNewButton_9.setText("Eliminar Empleado");
-
-		btnNewButton_10 = new Button(comBtnEmpleados, SWT.NONE);
-		btnNewButton_10.setText("Actualizar Empleado");
 
 		btnNewButton_11 = new Button(comBtnEmpleados, SWT.NONE);
 		btnNewButton_11.setText("Actualizar Tabla");
@@ -195,9 +173,6 @@ public class VPrincipal {
 
 		btnNewButton_13 = new Button(comBtnInventario, SWT.NONE);
 		btnNewButton_13.setText("Eliminar Producto");
-
-		btnNewButton_14 = new Button(comBtnInventario, SWT.NONE);
-		btnNewButton_14.setText("Actualizar Producto");
 
 		btnNewButton_15 = new Button(comBtnInventario, SWT.NONE);
 		btnNewButton_15.setText("Actualizar Tabla");
@@ -245,9 +220,6 @@ public class VPrincipal {
 		lblFoto = new Label(compUsuario, SWT.NONE);
 		lblFoto.setBounds(10, 10, 65, 58);
 
-		
-		
-		
 		cargarBtnVentas();
 
 	}
@@ -259,6 +231,16 @@ public class VPrincipal {
 		btnInventario.addListener(SWT.Selection, c);
 		btnCambiarUsr.addListener(SWT.Selection, c);
 		btnSalir.addListener(SWT.Selection, c);
+		
+		//CLIENTES
+		
+		btnCliNuevo.addListener(SWT.Selection, c);
+		btnCliEliminar.addListener(SWT.Selection, c);
+		btnCliTabla.addListener(SWT.Selection, c);
+		
+		//USUARIOS
+		
+		
 
 	}
 
@@ -278,7 +260,7 @@ public class VPrincipal {
 		lblNombre.setText(nombre);
 		lblCargo.setText(setCargoToText(cargo));
 	}
-	
+
 	public String setCargoToText(int i) {
 		String str = "";
 		switch (i) {
@@ -309,7 +291,7 @@ public class VPrincipal {
 		case 0:
 			layout.topControl = comBtnClientes;
 			layout2.topControl = compClientes;
-			
+
 			break;
 		case 1:
 			layout.topControl = comBtnEmpleados;
@@ -325,37 +307,36 @@ public class VPrincipal {
 			break;
 		default:
 			break;
-			
+
 		}
 		compBotones.layout();
 		compTabla.layout();
 	}
-	
-	public void cargarTablaEmpleados(HashSet<Empleado> listaProductos) {
-		
-		//compEmpleados.dispose();
+
+	public void cargarTablaEmpleados(List<Empleado> list) {
+
+		// compEmpleados.dispose();
 		compEmpleados = new Composite(compTabla, SWT.NONE);
 		compEmpleados.setLayout(new FillLayout(SWT.HORIZONTAL));
-		
+
 		Table tabla = new Table(compEmpleados, SWT.BORDER | SWT.CHECK | SWT.FULL_SELECTION | SWT.MULTI);
 		tabla.setLinesVisible(true);
 		tabla.setHeaderVisible(true);
-		
-		String[] titles2 = { "ID", "Nombre","Cedula","Direccion","Cargo", "Activo"};
+
+		String[] titles2 = { "ID", "Nombre", "Cedula", "Direccion", "Cargo", "Activo" };
 		for (int i = 0; i < titles2.length; i++) {
 			TableColumn tblclmnNewColumn2 = new TableColumn(tabla, SWT.NONE);
-			//tblclmnNewColumn.setWidth(100);
+			// tblclmnNewColumn.setWidth(100);
 			tblclmnNewColumn2.setText(titles2[i]);
 		}
 		for (int i = 0; i < titles2.length; i++) {
 			tabla.getColumn(i).pack();
 		}
-		
-		int i=0;
+
+		int i = 0;
 		String str = "";
 
-		for (Empleado a : listaProductos )  
-		{  
+		for (Empleado a : list) {
 			switch (a.getCargo()) {
 			case 0:
 				str = "Gerente";
@@ -364,76 +345,68 @@ public class VPrincipal {
 				str = "Entrenador";
 				break;
 			}
-			TableItem item = new TableItem(tabla, SWT.NONE);  
-		    item.setText(new String[]{ ""+i , a.getNombre() + " " + a.getApellido() , a.getCedula() , a.getDireccion() , str , ""+a.getActivo()});  
-		} 
-		
+			TableItem item = new TableItem(tabla, SWT.NONE);
+			item.setText(new String[] { "" + i, a.getNombre() + " " + a.getApellido(), a.getCedula(), a.getDireccion(),
+					str, "" + a.getActivo() });
+		}
+
 	}
 
-	public void cargarTablaClientes(HashSet<Empleado> listaProductos) {
-		
-		//compClientes.dispose();
+	public void cargarTablaClientes(List<Cliente> list) {
+
+		// compClientes.dispose();
 		compClientes = new Composite(compTabla, SWT.NONE);
 		compClientes.setLayout(new FillLayout(SWT.HORIZONTAL));
-		
-		Table tabla= new Table(compClientes, SWT.BORDER | SWT.CHECK | SWT.FULL_SELECTION | SWT.MULTI);
+
+		Table tabla = new Table(compClientes, SWT.BORDER | SWT.CHECK | SWT.FULL_SELECTION | SWT.MULTI);
 		tabla.setLinesVisible(true);
 		tabla.setHeaderVisible(true);
-		
-		String[] titles = {"ID", "Nombre","Cedula","Direccion", "Activo"};
+
+		String[] titles = { "ID", "Nombre", "Cedula", "Direccion", "Activo" };
 		for (int i = 0; i < titles.length; i++) {
 			TableColumn tblclmnNewColumn = new TableColumn(tabla, SWT.NONE);
-			//tblclmnNewColumn.setWidth(100);
+			// tblclmnNewColumn.setWidth(100);
 			tblclmnNewColumn.setText(titles[i]);
 		}
 		for (int i = 0; i < titles.length; i++) {
 			tabla.getColumn(i).pack();
 		}
-		
-		int i=0;
+
+		int i = 0;
 		String str = "";
 
-		for (Empleado a : listaProductos )  
-		{  
-			switch (a.getCargo()) {
-			case 0:
-				str = "Gerente";
-				break;
-			case 1:
-				str = "Entrenador";
-				break;
-			}
-			TableItem item = new TableItem(tabla, SWT.NONE);  
-		    item.setText(new String[]{ ""+i , a.getNombre() + " " + a.getApellido() , a.getCedula() , a.getDireccion() , str , ""+a.getActivo()});  
-		} 
-		
+		for (Cliente a : list) {
+
+			TableItem item = new TableItem(tabla, SWT.NONE);
+			item.setText(new String[] { "" + i, a.getNombre() + " " + a.getApellido(), a.getCedula(), a.getDireccion(), "" + a.getActivo() });
+		}
+
 	}
-	
+
 	public void cargarTablaVentas(HashSet<Empleado> listaProductos) {
-		
-		//compVentas.dispose();
+
+		// compVentas.dispose();
 		compVentas = new Composite(compTabla, SWT.NONE);
 		compVentas.setLayout(new FillLayout(SWT.HORIZONTAL));
-		
+
 		Table tabla = new Table(compVentas, SWT.BORDER | SWT.CHECK | SWT.FULL_SELECTION | SWT.MULTI);
 		tabla.setLinesVisible(true);
 		tabla.setHeaderVisible(true);
-		
-		String[] titles2 ={ "codigo", "cantidad","		Description		", "precio Unitario", "precio Total" };
+
+		String[] titles2 = { "codigo", "cantidad", "		Description		", "precio Unitario", "precio Total" };
 		for (int i = 0; i < titles2.length; i++) {
 			TableColumn tblclmnNewColumn2 = new TableColumn(tabla, SWT.NONE);
-			//tblclmnNewColumn.setWidth(100);
+			// tblclmnNewColumn.setWidth(100);
 			tblclmnNewColumn2.setText(titles2[i]);
 		}
 		for (int i = 0; i < titles2.length; i++) {
 			tabla.getColumn(i).pack();
 		}
-		
-		int i=0;
+
+		int i = 0;
 		String str = "";
 
-		for (Empleado a : listaProductos )  
-		{  
+		for (Empleado a : listaProductos) {
 			switch (a.getCargo()) {
 			case 0:
 				str = "Gerente";
@@ -442,37 +415,37 @@ public class VPrincipal {
 				str = "Entrenador";
 				break;
 			}
-			TableItem item = new TableItem(tabla, SWT.NONE);  
-		    item.setText(new String[]{ ""+i , a.getNombre() + " " + a.getApellido() , a.getCedula() , a.getDireccion() , str , ""+a.getActivo()});  
-		} 
-		
+			TableItem item = new TableItem(tabla, SWT.NONE);
+			item.setText(new String[] { "" + i, a.getNombre() + " " + a.getApellido(), a.getCedula(), a.getDireccion(),
+					str, "" + a.getActivo() });
+		}
+
 	}
-	
+
 	public void cargarTablaInventario(HashSet<Empleado> listaProductos) {
-		
-		//compInventario.dispose();
+
+		// compInventario.dispose();
 		compInventario = new Composite(compTabla, SWT.NONE);
 		compInventario.setLayout(new FillLayout(SWT.HORIZONTAL));
-		
+
 		Table tabla = new Table(compInventario, SWT.BORDER | SWT.CHECK | SWT.FULL_SELECTION | SWT.MULTI);
 		tabla.setLinesVisible(true);
 		tabla.setHeaderVisible(true);
-		
-		String[] titles2 ={ "ID", "Codigo","		Description		", "precio Unitario", "descuento %" };
+
+		String[] titles2 = { "ID", "Codigo", "		Description		", "precio Unitario", "descuento %" };
 		for (int i = 0; i < titles2.length; i++) {
 			TableColumn tblclmnNewColumn2 = new TableColumn(tabla, SWT.NONE);
-			//tblclmnNewColumn.setWidth(100);
+			// tblclmnNewColumn.setWidth(100);
 			tblclmnNewColumn2.setText(titles2[i]);
 		}
 		for (int i = 0; i < titles2.length; i++) {
 			tabla.getColumn(i).pack();
 		}
-		
-		int i=0;
+
+		int i = 0;
 		String str = "";
 
-		for (Empleado a : listaProductos )  
-		{  
+		for (Empleado a : listaProductos) {
 			switch (a.getCargo()) {
 			case 0:
 				str = "Gerente";
@@ -481,16 +454,13 @@ public class VPrincipal {
 				str = "Entrenador";
 				break;
 			}
-			TableItem item = new TableItem(tabla, SWT.NONE);  
-		    item.setText(new String[]{ ""+i , a.getNombre() + " " + a.getApellido() , a.getCedula() , a.getDireccion() , str , ""+a.getActivo()});  
-		} 
-		
+			TableItem item = new TableItem(tabla, SWT.NONE);
+			item.setText(new String[] { "" + i, a.getNombre() + " " + a.getApellido(), a.getCedula(), a.getDireccion(),
+					str, "" + a.getActivo() });
+		}
+
 	}
-	
-	
-	
-	
-	
+
 	private void cargarBtnVentas() {
 		comBtnVentas = new Composite(compBotones, SWT.NONE);
 		comBtnVentas.setLayout(new FormLayout());
@@ -584,11 +554,11 @@ public class VPrincipal {
 		btnSalir_3.setLayoutData(new RowData(264, SWT.DEFAULT));
 		btnSalir_3.setText("Reiniciar");
 	}
-	
+
 	public void llenarLista(List<Cliente> l) {
-		for(Cliente a: l) {
-		combo.add(a.getNombre() + " " + a.getApellido());
+		for (Cliente a : l) {
+			combo.add(a.getNombre() + " " + a.getApellido());
 		}
 	}
-	
+
 }

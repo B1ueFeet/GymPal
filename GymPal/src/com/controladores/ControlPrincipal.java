@@ -11,7 +11,9 @@ import com.modelos.ModeloCliente;
 import com.modelos.ModeloEmpleado;
 import com.modelos.ModeloPrincipal;
 import com.objetos.Cliente;
+import com.objetos.Empleado;
 import com.vistas.VCarga;
+import com.vistas.VCrudObjetos;
 import com.vistas.VPrincipal;
 import com.vistas.VUsuarios;
 
@@ -23,6 +25,12 @@ public class ControlPrincipal implements Listener {
 	private final String INVENTARIO = "Button {Inventario}";
 	private final String CAMBIAR_USR = "Button {Cambiar Usuario}";
 	private final String SALIR = "Button {Salir}";
+
+	// CLIENTES
+
+	private final String ACTUALIZAR_TABLA = "Button {Actualizar Tabla}";
+	private final String ELIMINAR_CLI = "Button {Eliminar Cliente}";
+	private final String NUEVO_CLI = "Button {Nuevo Cliente}";
 
 	ModeloPrincipal modelo;
 	VPrincipal vista;
@@ -50,11 +58,19 @@ public class ControlPrincipal implements Listener {
 	public void accionBoton(Event e) {
 		int op = 0;
 		switch (e.widget.toString()) {
+		case ACTUALIZAR_TABLA:
 		case CLIENTES:
 			op = 0;
+			vista.cargarTablaClientes(obtenerListaClientes());
+			break;
+		case NUEVO_CLI:
+			ventanaCrudObjetos(0);
+			break;
+		case ELIMINAR_CLI:
 			break;
 		case EMPLEADOS:
 			op = 1;
+			vista.cargarTablaEmpleados(obtenerListaEmpleados());
 			break;
 		case VENTAS:
 			op = 2;
@@ -74,8 +90,8 @@ public class ControlPrincipal implements Listener {
 		default:
 			break;
 		}
-		obtenerListaEmpleados();
-		//vista.cargarTabla1(op);
+		// obtenerListaEmpleados();
+		// vista.cargarTabla1(op);
 		vista.showComposite(op);
 
 	}
@@ -100,24 +116,19 @@ public class ControlPrincipal implements Listener {
 		vista.setEmpleado(controlU.getCargo(), controlU.getEmpleado());
 		vista.controlAcceso(controlU.getCargo());
 	}
-	
-	public void obtenerListaEmpleados() {
+
+	public List<Empleado> obtenerListaEmpleados() {
 		ModeloEmpleado modeloU = new ModeloEmpleado();
-		VUsuarios vistaU = new VUsuarios(vista.getDisplay());
-		ControlEmpleados controlU = new ControlEmpleados(vistaU, modeloU);
-		vistaU.setControlador(controlU);
 		try {
-			vista.cargarTablaEmpleados(modeloU.LeerProductos());
-			vista.cargarTablaClientes(modeloU.LeerProductos());
-			vista.cargarTablaVentas(modeloU.LeerProductos());
-			vista.cargarTablaInventario(modeloU.LeerProductos());
+			return modeloU.LeerProductos();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return null;
+
 	}
-	
+
 	public List<Cliente> obtenerListaClientes() {
 		ModeloCliente modeloU = new ModeloCliente();
 		try {
@@ -126,12 +137,18 @@ public class ControlPrincipal implements Listener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return null;
-		
-		
-		
-	}
 
+	}
+	
+	public void ventanaCrudObjetos(int estado) {
+		ModeloEmpleado modeloE = new ModeloEmpleado();
+		ModeloCliente modeloC = new ModeloCliente();
+		VCrudObjetos vistaC = new VCrudObjetos(vista.getDisplay());
+		ControlCrudObjetos control = new ControlCrudObjetos(vistaC, modeloE, modeloC);
+		vistaC.setControlador(control);
+		vistaC.open(estado);
+	}
+	
 
 }
