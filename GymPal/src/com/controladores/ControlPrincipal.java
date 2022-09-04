@@ -44,19 +44,19 @@ public class ControlPrincipal implements Listener {
 	}
 
 	public void accionBoton(Event e) {
-
+		int op=0;
 		switch (e.widget.toString()) {
 		case CLIENTES:
-			adminClientes();
+			op = 0;
 			break;
 		case EMPLEADOS:
-			adminEmpleados();
+			op = 1;
 			break;
 		case VENTAS:
-			adminVentas();
+			op = 2;
 			break;
 		case INVENTARIO:
-			adminInventario();
+			op = 3;
 			break;
 		case CAMBIAR_USR:
 			vista.pausar(true);
@@ -65,10 +65,11 @@ public class ControlPrincipal implements Listener {
 			break;
 		case SALIR:
 			vista.apagar();
-			break;
+			return;
 		default:
 			break;
 		}
+		vista.showComposite(op);
 
 	}
 
@@ -87,23 +88,6 @@ public class ControlPrincipal implements Listener {
 		vista.controlAcceso(controlU.getCargo());
 	}
 
-	public void adminClientes() {
-		System.out.println("aqui va la ventana de clientes");
 
-	}
-
-	public void adminEmpleados() {
-		System.out.println("aqui va la ventana de empleados");
-
-	}
-
-	public void adminVentas() {
-		System.out.println("aqui va la ventana de contabilidad");
-
-	}
-
-	public void adminInventario() {
-		System.out.println("aqui va la ventana de inventario");
-	}
 }
 
