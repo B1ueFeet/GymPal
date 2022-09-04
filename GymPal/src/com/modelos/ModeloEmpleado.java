@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -40,7 +42,7 @@ public class ModeloEmpleado {
 		connection = obtenerConexion();
 		// select username,password,cargo,nombre,apellido from empleados where activo = 1 and username = 'socastillo'
 		try {
-			sql = "select * from empleados where activo = 1 and (username = ? or cedula = ?)";
+			sql = "select * from empleados where (username = ? or cedula = ?)";
 			sentencia = connection.prepareStatement(sql);
 			sentencia.setString(1, usr);
 			sentencia.setString(2, usr);
@@ -70,6 +72,33 @@ public class ModeloEmpleado {
 		}
 		return e;
 	}
+	
+    public HashSet<Empleado> LeerProductos() throws SQLException {
+        String sql = null;
+        ResultSet resultSet = null;
+        connection = obtenerConexion();
+        HashSet<Empleado> listaProductos = new HashSet<>();
+        connection = obtenerConexion();
+
+        try {
+            sql = "SELECT * FROM empleados";
+            sentencia = connection.prepareStatement(sql);
+            resultSet = sentencia.executeQuery();
+            resultSet.next();
+            do {
+            	System.out.println(resultSet.getString(9));
+                Empleado auxProd = verificarExistencia(resultSet.getString(9));
+                listaProductos.add(auxProd);
+                System.out.println(auxProd);
+            } while (resultSet.next());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            connection.close();
+            sentencia.close();
+        }
+        return listaProductos;
+    }
 
 
 	// VERIFICAR ENVIAR CORREO
