@@ -166,6 +166,7 @@ public class ProductosCrud { // Create, Read, Update, Delete
 		return listaProductos;
 
 	}
+	
 
 	private Connection obtenerConexion() throws SQLException {
 		return Conexion.getConnection();

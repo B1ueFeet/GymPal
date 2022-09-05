@@ -17,11 +17,10 @@ import com.vistas.VCrudObjetos;
 import com.vistas.VPrincipal;
 import com.vistas.VUsuarios;
 
-public class ControlPrincipal implements Listener {
+public  class ControlPrincipal implements Listener {
 
 	private final String CLIENTES = "Button {Clientes}";
 	private final String EMPLEADOS = "Button {Empleados}";
-	private final String VENTAS = "Button {Ventas}";
 	private final String INVENTARIO = "Button {Inventario}";
 	private final String CAMBIAR_USR = "Button {Cambiar Usuario}";
 	private final String SALIR = "Button {Salir}";
@@ -31,6 +30,7 @@ public class ControlPrincipal implements Listener {
 	private final String ACTUALIZAR_TABLA = "Button {Actualizar Tabla}";
 	private final String ELIMINAR_CLI = "Button {Eliminar Cliente}";
 	private final String NUEVO_CLI = "Button {Nuevo Cliente}";
+	private final String TABLA = "Table {}";
 
 	ModeloPrincipal modelo;
 	VPrincipal vista;
@@ -43,7 +43,7 @@ public class ControlPrincipal implements Listener {
 
 	@Override
 	public void handleEvent(Event e) {
-		System.out.println(e.widget);
+		System.out.println(e);
 		switch (e.type) {
 		case SWT.Selection:
 			accionBoton(e);
@@ -67,17 +67,14 @@ public class ControlPrincipal implements Listener {
 			ventanaCrudObjetos(0);
 			break;
 		case ELIMINAR_CLI:
+			System.out.println(vista.getAuxT());
 			break;
 		case EMPLEADOS:
 			op = 1;
 			vista.cargarTablaEmpleados(obtenerListaEmpleados());
 			break;
-		case VENTAS:
-			op = 2;
-			vista.llenarLista(obtenerListaClientes());
-			break;
 		case INVENTARIO:
-			op = 3;
+			op = 2;
 			break;
 		case CAMBIAR_USR:
 			vista.pausar(true);

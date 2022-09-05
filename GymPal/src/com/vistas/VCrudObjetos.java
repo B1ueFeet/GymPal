@@ -19,20 +19,32 @@ import org.eclipse.swt.widgets.Text;
 import com.controladores.ControlCrudObjetos;
 
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 
 public class VCrudObjetos {
 
 	protected Shell shell;
-	private Text text;
-	private Text text_1;
-	private Text text_2;
-	private Text text_3;
-	private Text text_4;
-	private Text text_5;
+	private Text tApellido;
+	private Text tCedula;
+	private Text tCelular;
+	private Text tDireccion;
+	private Text tCorreo;
 	private Display display;
 	private Composite compClientes;
 	private Composite compEmpleados;
 	private Composite compInventario;
+	private Button btnActualizarCli, btnCancelar, btnNuevoCli;
+
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
+	private int estado;
+	private Text tNombre;
 
 	public Display getDisplay() {
 		return display;
@@ -57,6 +69,7 @@ public class VCrudObjetos {
 	}
 
 	public void open(int estado) {
+		this.estado = estado;
 		showComposite(estado);
 		shell.open();
 		shell.layout();
@@ -136,68 +149,68 @@ public class VCrudObjetos {
 		lblNewLabel_5.setLayoutData(fd_lblNewLabel_5);
 		lblNewLabel_5.setText("Correo");
 
-		text = new Text(compClientes, SWT.BORDER);
-		FormData fd_text = new FormData();
-		fd_text.top = new FormAttachment(lblIngreseLosDatos, 43);
-		fd_text.right = new FormAttachment(lblNewLabel, 360, SWT.RIGHT);
-		fd_text.left = new FormAttachment(lblNewLabel, 32);
-		text.setLayoutData(fd_text);
+		tApellido = new Text(compClientes, SWT.BORDER);
+		FormData fd_tApellido = new FormData();
+		fd_tApellido.top = new FormAttachment(lblIngreseLosDatos, 80);
+		fd_tApellido.right = new FormAttachment(100, -107);
+		fd_tApellido.left = new FormAttachment(lblNewLabel_1, 32);
+		tApellido.setLayoutData(fd_tApellido);
 
-		text_1 = new Text(compClientes, SWT.BORDER);
-		FormData fd_text_1 = new FormData();
-		fd_text_1.right = new FormAttachment(text, 0, SWT.RIGHT);
-		fd_text_1.top = new FormAttachment(text, 16);
-		fd_text_1.left = new FormAttachment(text, 0, SWT.LEFT);
-		text_1.setLayoutData(fd_text_1);
+		tCedula = new Text(compClientes, SWT.BORDER);
+		FormData fd_tCedula = new FormData();
+		fd_tCedula.right = new FormAttachment(100, -107);
+		fd_tCedula.left = new FormAttachment(lblNewLabel_2, 41);
+		fd_tCedula.top = new FormAttachment(tApellido, 21);
+		tCedula.setLayoutData(fd_tCedula);
 
-		text_2 = new Text(compClientes, SWT.BORDER);
-		FormData fd_text_2 = new FormData();
-		fd_text_2.right = new FormAttachment(text, 0, SWT.RIGHT);
-		fd_text_2.top = new FormAttachment(text_1, 21);
-		fd_text_2.left = new FormAttachment(text, 0, SWT.LEFT);
-		text_2.setLayoutData(fd_text_2);
+		tCelular = new Text(compClientes, SWT.BORDER);
+		FormData fd_tCelular = new FormData();
+		fd_tCelular.right = new FormAttachment(100, -107);
+		fd_tCelular.left = new FormAttachment(lblNewLabel_3, 39);
+		fd_tCelular.top = new FormAttachment(tCedula, 19);
+		tCelular.setLayoutData(fd_tCelular);
 
-		text_3 = new Text(compClientes, SWT.BORDER);
-		FormData fd_text_3 = new FormData();
-		fd_text_3.right = new FormAttachment(text, 0, SWT.RIGHT);
-		fd_text_3.top = new FormAttachment(text_2, 19);
-		fd_text_3.left = new FormAttachment(text, 0, SWT.LEFT);
-		text_3.setLayoutData(fd_text_3);
+		tDireccion = new Text(compClientes, SWT.BORDER);
+		FormData fd_tDireccion = new FormData();
+		fd_tDireccion.right = new FormAttachment(100, -107);
+		fd_tDireccion.left = new FormAttachment(lblNewLabel_4, 32);
+		fd_tDireccion.top = new FormAttachment(lblNewLabel_4, 0, SWT.TOP);
+		tDireccion.setLayoutData(fd_tDireccion);
 
-		text_4 = new Text(compClientes, SWT.BORDER);
-		FormData fd_text_4 = new FormData();
-		fd_text_4.right = new FormAttachment(text, 0, SWT.RIGHT);
-		fd_text_4.left = new FormAttachment(text, 0, SWT.LEFT);
-		fd_text_4.top = new FormAttachment(lblNewLabel_4, 0, SWT.TOP);
-		text_4.setLayoutData(fd_text_4);
+		tCorreo = new Text(compClientes, SWT.BORDER);
+		FormData fd_tCorreo = new FormData();
+		fd_tCorreo.right = new FormAttachment(100, -107);
+		fd_tCorreo.left = new FormAttachment(lblNewLabel_5, 32);
+		fd_tCorreo.top = new FormAttachment(lblNewLabel_5, 0, SWT.TOP);
+		tCorreo.setLayoutData(fd_tCorreo);
 
-		text_5 = new Text(compClientes, SWT.BORDER);
-		FormData fd_text_5 = new FormData();
-		fd_text_5.right = new FormAttachment(text, 0, SWT.RIGHT);
-		fd_text_5.left = new FormAttachment(text, 0, SWT.LEFT);
-		fd_text_5.top = new FormAttachment(lblNewLabel_5, 0, SWT.TOP);
-		text_5.setLayoutData(fd_text_5);
-
-		Button btnCancelar = new Button(compClientes, SWT.NONE);
+		btnCancelar = new Button(compClientes, SWT.NONE);
 		FormData fd_btnCancelar = new FormData();
 		fd_btnCancelar.bottom = new FormAttachment(100, -27);
 		fd_btnCancelar.left = new FormAttachment(lblNewLabel_4, 0, SWT.LEFT);
 		btnCancelar.setLayoutData(fd_btnCancelar);
 		btnCancelar.setText("Cancelar");
 
-		Button btnNuevo = new Button(compClientes, SWT.NONE);
-		FormData fd_btnNuevo = new FormData();
-		fd_btnNuevo.top = new FormAttachment(btnCancelar, 0, SWT.TOP);
-		fd_btnNuevo.left = new FormAttachment(btnCancelar, 119);
-		btnNuevo.setLayoutData(fd_btnNuevo);
-		btnNuevo.setText("Nuevo");
+		btnNuevoCli = new Button(compClientes, SWT.NONE);
+		FormData fd_btnNuevoCli = new FormData();
+		fd_btnNuevoCli.top = new FormAttachment(btnCancelar, 0, SWT.TOP);
+		fd_btnNuevoCli.left = new FormAttachment(btnCancelar, 119);
+		btnNuevoCli.setLayoutData(fd_btnNuevoCli);
+		btnNuevoCli.setText("Nuevo");
 
-		Button btnActualizar = new Button(compClientes, SWT.NONE);
-		FormData fd_btnActualizar = new FormData();
-		fd_btnActualizar.top = new FormAttachment(btnCancelar, 0, SWT.TOP);
-		fd_btnActualizar.right = new FormAttachment(text, 0, SWT.RIGHT);
-		btnActualizar.setLayoutData(fd_btnActualizar);
-		btnActualizar.setText("actualizar");
+		btnActualizarCli = new Button(compClientes, SWT.NONE);
+		FormData fd_btnActualizarCli = new FormData();
+		fd_btnActualizarCli.right = new FormAttachment(100, -107);
+		fd_btnActualizarCli.top = new FormAttachment(btnCancelar, 0, SWT.TOP);
+		btnActualizarCli.setLayoutData(fd_btnActualizarCli);
+		btnActualizarCli.setText("actualizar");
+		
+		tNombre = new Text(compClientes, SWT.BORDER);
+		FormData fd_tNombre = new FormData();
+		fd_tNombre.left = new FormAttachment(tApellido, 0, SWT.LEFT);
+		fd_tNombre.top = new FormAttachment(lblNewLabel, 0, SWT.TOP);
+		fd_tNombre.right = new FormAttachment(tApellido, 0, SWT.RIGHT);
+		tNombre.setLayoutData(fd_tNombre);
 
 		compEmpleados = new Composite(shell, SWT.NONE);
 		compEmpleados.setLayout(new StackLayout());
@@ -206,7 +219,7 @@ public class VCrudObjetos {
 		compInventario.setLayout(new StackLayout());
 
 	}
-	
+
 	public void showComposite(int op) {
 		StackLayout layout = (StackLayout) shell.getLayout();
 		switch (op) {
@@ -227,6 +240,38 @@ public class VCrudObjetos {
 	}
 
 	public void setControlador(ControlCrudObjetos c) {
-		
+
+		btnCancelar.addListener(SWT.Selection, c);
+		// CLIENTES
+		btnActualizarCli.addListener(SWT.Selection, c);
+		btnNuevoCli.addListener(SWT.Selection, c);
+
+	}
+
+	public void apagar() {
+		shell.close();
+	}
+
+	public void pausar(boolean b) {
+		shell.setVisible(!b);
+	}
+	
+	public String getNombreCli() {
+		return tNombre.getText();
+	}
+	public String getApellidoCli() {
+		return tApellido.getText();
+	}
+	public String getCedulaCli() {
+		return tCedula.getText();
+	}
+	public String getCelularCli() {
+		return tCelular.getText();
+	}
+	public String getDireccionCli() {
+		return tDireccion.getText();
+	}
+	public String getCorreoCli() {
+		return tCorreo.getText();
 	}
 }
